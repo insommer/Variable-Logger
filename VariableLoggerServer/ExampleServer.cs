@@ -21,19 +21,50 @@ namespace Virgil
 
         private MainExampleServerlForm exampleServerForm;
 
+        private string basePathFile = "settings.txt";
+
         public ExampleServerSettings serverSettings;
 
         public ExampleServer(MainExampleServerlForm form, ExampleServerSettings serverSettings)
         {
             this.exampleServerForm = form;
             this.serverSettings = serverSettings;
-            string yearDateDir = DateTime.Now.ToString("'Data/'yyyy'/'MM'-'yyyy'/'dd' 'MMM' 'yyyy'/''Variable Logs'");
-            this.serverSettings.LogFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), yearDateDir);
-          
+
+            LoadBasePath(basePathFile);
+            SetDateFolder();
             this.serverSettings.ServerName = "VariableLogger";
             this.serverSettings.ServerPort = 5679;
         }
+        private void SetDateFolder()
+        {
+            this.serverSettings.LogFileSubfolder = DateTime.Now.ToString("'Data/'yyyy'/'MM'-'yyyy'/'dd' 'MMM' 'yyyy'/''Variable Logs'");
+        }
+        private void LoadBasePath(string fileName)
+        { //get the root folder in which to store the Data folder
+            try
+            {
+                if (!File.Exists(fileName))//Create for next time:
+                    using (StreamWriter sw = new StreamWriter(fileName))//Default to My Documents:
+                        sw.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+                //Now it must exist, so read it:
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    this.serverSettings.LogFileBasePath = sr.ReadLine();
+                }
+                 
+            }
+            catch (Exception e) { Console.WriteLine("{0}", e.ToString()); }
 
+        }
+        private void SaveBasePath(string fileName)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(fileName))
+                    sw.WriteLine(this.serverSettings.LogFileBasePath);
+            }
+            catch (Exception e) { Console.WriteLine("{0}", e.ToString()); }
+        }
 
         #region Implementation of ServerCommunicator
         public override bool armTasks(UInt32 clockID)
@@ -101,8 +132,10 @@ namespace Virgil
             messageLog(this, new MessageEvent("Received sequence data."));
             List<Variable> vars = sequence.Variables;
             string dateTime = DateTime.Now.ToString("yyyy'_'MM'_'dd'_'HH'_'mm'_'ss");
-            Directory.CreateDirectory(serverSettings.LogFilePath);
-            string dir = serverSettings.LogFilePath;
+            SetDateFolder();
+            string dir = Path.GetFullPath(Path.Combine(serverSettings.LogFileBasePath, serverSettings.LogFileSubfolder));
+            Directory.CreateDirectory(dir);
+            SaveBasePath(basePathFile);
 
             string tentativeLogNameWithDir = Path.Combine(dir, "Variables_" + dateTime);
             string logFileExtension = ".txt";

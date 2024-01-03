@@ -22,12 +22,20 @@ namespace Virgil
             set { serverPort = value; }
         }
 
-        private string logFilePath;
-
-        public string LogFilePath
+        private string logFileBasePath;
+        public string LogFileBasePath
         {
-            get { return logFilePath; }
-            set { logFilePath = value; }
+            get { return logFileBasePath; }
+            set { logFileBasePath = value; }
         }
+
+        private string logFileSubfolder;
+        public string LogFileSubfolder
+        {
+            get { return logFileSubfolder; }
+            set { logFileSubfolder = value; }
+        }
+
+
     }
 }

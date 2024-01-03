@@ -53,7 +53,7 @@ namespace Virgil
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(739, 495);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(901, 495);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // propertyGrid1
@@ -61,8 +61,9 @@ namespace Virgil
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(23, 23);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(593, 221);
+            this.propertyGrid1.Size = new System.Drawing.Size(755, 221);
             this.propertyGrid1.TabIndex = 0;
+            this.propertyGrid1.Click += new System.EventHandler(this.propertyGrid1_Click);
             // 
             // textBox1
             // 
@@ -71,13 +72,13 @@ namespace Virgil
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(593, 221);
+            this.textBox1.Size = new System.Drawing.Size(755, 221);
             this.textBox1.TabIndex = 1;
             // 
             // connectButton
             // 
             this.connectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.connectButton.Location = new System.Drawing.Point(622, 23);
+            this.connectButton.Location = new System.Drawing.Point(784, 23);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(94, 55);
             this.connectButton.TabIndex = 2;
@@ -85,14 +86,15 @@ namespace Virgil
             this.connectButton.UseVisualStyleBackColor = true;
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
-            // MainVirgilForm
+            // MainExampleServerlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 495);
+            this.ClientSize = new System.Drawing.Size(901, 495);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "MainVirgilForm";
-            this.Text = "Virgil";
+            this.Name = "MainExampleServerlForm";
+            this.Text = "Variable Logger";
+            this.Load += new System.EventHandler(this.MainExampleServerlForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
